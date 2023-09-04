@@ -22,20 +22,22 @@ public class KeyboardMenu extends JPanel {
                 {"W", "MOVES LEFT PADDLE UP"},
                 {"S", "MOVES LEFT PADDLE DOWN"},
                 {"+", "MOVES RIGHT PADDLE UP"},
-                {"#", "MOVES RIGHT PADDLE DOWN"}
+                {"#", "MOVES RIGHT PADDLE DOWN"},
+                {"SPACE", "PAUSE / RESUME"}
         };
         JTable jTable = new JTable(data, cols);
+        jTable.getColumnModel().getColumn(0).setMinWidth(150);
+        jTable.getColumnModel().getColumn(0).setMaxWidth(200);
         JScrollPane jScrollPane = new JScrollPane(jTable);
         jScrollPane.setPreferredSize(new Dimension(900, 300));
         jTable.setForeground(Color.WHITE);
         jTable.setRowHeight(70);
-        //jTable.setShowGrid(false);
         jTable.getTableHeader().setBackground(Color.BLACK);
         jTable.getTableHeader().setForeground(Color.WHITE);
         jTable.setFont(MenuPanel.CONTROL_FONT);
-        jTable.getColumnModel().getColumn(0).setMaxWidth(100);
         jTable.setBackground(Color.BLACK);
         jTable.setOpaque(true);
+        jScrollPane.getVerticalScrollBar().setBackground(Color.WHITE);
 
         JButton bReturn = new JButton();
         bReturn.setFocusPainted(false);
