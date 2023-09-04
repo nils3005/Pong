@@ -8,7 +8,7 @@ import java.io.File;
 
 public class MenuPanel extends JPanel {
     public static final Font TITLE_FONT = new Font("Consolas", Font.BOLD, 100);
-    public static final Font CONTROL_FONT = new Font("Consolas", Font.BOLD, 60);
+    public static final Font CONTROL_FONT = new Font("Consolas", Font.BOLD, 50);
     private boolean isSound = true;
     private int speed = 5;
     private JButton bSound;
@@ -33,7 +33,6 @@ public class MenuPanel extends JPanel {
         panelControl.setBackground(Color.BLACK);
         JButton bStart = new JButton();
         bStart.setPreferredSize(new Dimension(70, 70));
-        bStart.setFont(CONTROL_FONT);
         bStart.setForeground(Color.WHITE);
         bStart.setMargin(new Insets(0, 0, 0, 0));
         bStart.setOpaque(true);
