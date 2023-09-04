@@ -1,7 +1,12 @@
 package org.example;
 
 public class Main {
+    private static Frame frame;
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        frame = new Frame();
+    }
+
+    public static Frame getFrame(){
+        return frame;
     }
 }
