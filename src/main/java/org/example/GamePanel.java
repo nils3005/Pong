@@ -79,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (ball.intersects(paddle1) || ball.intersects(paddle2)){
             ball.setXDirection(-ball.getxDirection());
             if (sound != null){
-                playSoundEffect();
+                playSoundEffect(Sound.SE.PADDLE);
             }
         }
         if (ball.x <= 0 || ball.x >= (PANEL_WIDTH - BALL_DIAMETER)) scored();
@@ -91,9 +91,8 @@ public class GamePanel extends JPanel implements Runnable {
         if (paddle2.y >= (PANEL_HEIGHT - PADDLE_HEIGHT)) paddle2.y = PANEL_HEIGHT - PADDLE_HEIGHT;
     }
 
-    private void playSoundEffect(){
-        sound.setFile();
-        sound.play();
+    private void playSoundEffect(Sound.SE se){
+        sound.play(se);
     }
 
     private void scored() {
@@ -102,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             score.player1Scored();
         }
+        playSoundEffect(Sound.SE.SCORE);
         newBall();
     }
 
