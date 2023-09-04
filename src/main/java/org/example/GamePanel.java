@@ -5,15 +5,12 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static java.lang.Thread.sleep;
-
 public class GamePanel extends JPanel implements Runnable {
     private static final int BALL_DIAMETER = 20;
     private static final int PADDLE_WIDTH = 25;
     private static final int PADDLE_HEIGHT = 100;
     private static final long BALL_PADDLE_COLLISION_DELAY = 500;
     public static final int FPS = 60;
-    public static final long MAX_LOOP_TIME = 1000 / FPS;
     private boolean p1Up, p1Down;
     private boolean p2Up, p2Down;
     private Thread thread;
@@ -44,7 +41,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void move() {
-        //if (!isRunning) return;
         if (p1Up) paddle1.moveUp();
         if (p1Down) paddle1.moveDown();
         if (p2Up) paddle2.moveUp();
@@ -53,7 +49,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void checkCollision() {
-        //if (!isRunning) return;
         if (ball.y <= 0 || ball.y >= (Main.PANEL_HEIGHT - BALL_DIAMETER)) ball.setYDirection(-ball.getyDirection());
         if (ball.x <= 0 || ball.x >= (Main.PANEL_WIDTH - BALL_DIAMETER)) scored();
         if (System.currentTimeMillis() - lastTime >= BALL_PADDLE_COLLISION_DELAY && (ball.intersects(paddle1) || ball.intersects(paddle2))) {

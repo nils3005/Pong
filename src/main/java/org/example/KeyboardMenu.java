@@ -2,11 +2,12 @@ package org.example;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.io.File;
 
 public class KeyboardMenu extends JPanel {
-    public KeyboardMenu(){
+    public KeyboardMenu() {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 20));
         this.setPreferredSize(Main.SCREEN_DIMENSION);
         this.setFocusable(true);
@@ -30,6 +31,13 @@ public class KeyboardMenu extends JPanel {
         jTable.getColumnModel().getColumn(0).setMaxWidth(200);
         JScrollPane jScrollPane = new JScrollPane(jTable);
         jScrollPane.setPreferredSize(new Dimension(900, 300));
+        jScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = Color.DARK_GRAY;
+            }
+        });
+
         jTable.setForeground(Color.WHITE);
         jTable.setRowHeight(70);
         jTable.getTableHeader().setBackground(Color.BLACK);
@@ -37,7 +45,6 @@ public class KeyboardMenu extends JPanel {
         jTable.setFont(MenuPanel.CONTROL_FONT);
         jTable.setBackground(Color.BLACK);
         jTable.setOpaque(true);
-        jScrollPane.getVerticalScrollBar().setBackground(Color.WHITE);
 
         JButton bReturn = new JButton();
         bReturn.setFocusPainted(false);
