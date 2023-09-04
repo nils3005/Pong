@@ -22,12 +22,14 @@ public class GamePanel extends JPanel implements Runnable {
     private Ball ball;
     private Score score;
     private int speed;
+    private boolean isSound;
 
-    public GamePanel(boolean isSound, int speed) {
+    public GamePanel(boolean pIsSound, int speed) {
         this.speed = speed;
         newPaddles();
         newBall();
-        if (isSound) sound = new Sound();
+        sound = new Sound();
+        isSound = pIsSound;
         score = new Score(PANEL_WIDTH, PANEL_HEIGHT);
         this.setFocusable(true); //Wenn KeyEvent, dann Fokus
         this.addKeyListener(new AL());
@@ -78,9 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (ball.y <= 0 || ball.y >= (PANEL_HEIGHT - BALL_DIAMETER)) ball.setYDirection(-ball.getyDirection());
         if (ball.intersects(paddle1) || ball.intersects(paddle2)){
             ball.setXDirection(-ball.getxDirection());
-            if (sound != null){
-                playSoundEffect(Sound.SE.PADDLE);
-            }
+            if (isSound) playSoundEffect(Sound.SE.PADDLE);
         }
         if (ball.x <= 0 || ball.x >= (PANEL_WIDTH - BALL_DIAMETER)) scored();
 
