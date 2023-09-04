@@ -6,16 +6,24 @@ import java.awt.*;
 public class Frame extends JFrame {
     private GamePanel gamePanel;
     private MenuPanel menuPanel;
+    private KeyboardMenu keyboardMenu;
 
     public Frame() {
         createMenuPanel();
         setDefaultJFrame();
     }
 
-    private void createMenuPanel() {
+    public void createMenuPanel() {
+        if (keyboardMenu != null){
+            this.remove(keyboardMenu);
+            keyboardMenu = null;
+        }
         menuPanel = new MenuPanel();
         this.add(menuPanel);
         this.pack();
+        menuPanel.requestFocus();
+        menuPanel.repaint();
+        menuPanel.revalidate();
     }
 
     public void createGamePanel() {
@@ -29,6 +37,15 @@ public class Frame extends JFrame {
         gamePanel.repaint();
     }
 
+    public void createKeyboardPanel(){
+        this.remove(menuPanel);
+        keyboardMenu = new KeyboardMenu();
+        this.add(keyboardMenu);
+        keyboardMenu.requestFocus();
+        keyboardMenu.repaint();
+        keyboardMenu.revalidate();
+    }
+
     private void setDefaultJFrame(){
         this.setResizable(false);
         this.setBackground(Color.BLACK);
@@ -36,6 +53,5 @@ public class Frame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
 
 }
