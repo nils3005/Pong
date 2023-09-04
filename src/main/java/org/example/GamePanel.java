@@ -12,6 +12,7 @@ public class GamePanel extends JPanel implements Runnable {
     private static final int BALL_DIAMETER = 20;
     private static final int PADDLE_WIDTH = 25;
     private static final int PADDLE_HEIGHT = 100;
+    private static final long BALL_PADDLE_COLLISION_DELAY = 500;
     private boolean p1Up, p1Down;
     private boolean p2Up, p2Down;
     private Thread thread;
@@ -23,19 +24,20 @@ public class GamePanel extends JPanel implements Runnable {
     private Score score;
     private int speed;
     private boolean isSound;
+    private long lastTime = System.currentTimeMillis();
 
     public GamePanel(boolean pIsSound, int speed) {
         this.speed = speed;
-        newPaddles();
-        newBall();
-        sound = new Sound();
-        isSound = pIsSound;
-        score = new Score(PANEL_WIDTH, PANEL_HEIGHT);
-        this.setFocusable(true); //Wenn KeyEvent, dann Fokus
+        this.setFocusable(true);
         this.addKeyListener(new AL());
         this.setPreferredSize(SCREEN_DIMENSION);
         thread = new Thread(this);
         thread.start();
+        sound = new Sound();
+        isSound = pIsSound;
+        score = new Score(PANEL_WIDTH, PANEL_HEIGHT);
+        newBall();
+        newPaddles();
     }
 
     public void newBall() {
@@ -76,23 +78,21 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void checkCollision() {
-        //Ball
         if (ball.y <= 0 || ball.y >= (PANEL_HEIGHT - BALL_DIAMETER)) ball.setYDirection(-ball.getyDirection());
-        if (ball.intersects(paddle1) || ball.intersects(paddle2)){
-            ball.setXDirection(-ball.getxDirection());
-            if (isSound) playSoundEffect(Sound.SE.PADDLE);
-        }
         if (ball.x <= 0 || ball.x >= (PANEL_WIDTH - BALL_DIAMETER)) scored();
-
-        //Paddles
+        if (System.currentTimeMillis() - lastTime >= BALL_PADDLE_COLLISION_DELAY && (ball.intersects(paddle1) || ball.intersects(paddle2))) {
+            ball.setXDirection(-ball.getxDirection());
+            playSoundEffect(Sound.SE.PADDLE);
+            lastTime = System.currentTimeMillis();
+        }
         if (paddle1.y <= 0) paddle1.y = 0;
         if (paddle1.y >= (PANEL_HEIGHT - PADDLE_HEIGHT)) paddle1.y = PANEL_HEIGHT - PADDLE_HEIGHT;
         if (paddle2.y <= 0) paddle2.y = 0;
         if (paddle2.y >= (PANEL_HEIGHT - PADDLE_HEIGHT)) paddle2.y = PANEL_HEIGHT - PADDLE_HEIGHT;
     }
 
-    private void playSoundEffect(Sound.SE se){
-        sound.play(se);
+    private void playSoundEffect(Sound.SE se) {
+        if (isSound) sound.play(se);
     }
 
     private void scored() {
@@ -106,7 +106,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void run() {
-        //28 min
         long lastTime = System.currentTimeMillis();
         double ticks = 60.0;
         double ms = 1000 / ticks;
