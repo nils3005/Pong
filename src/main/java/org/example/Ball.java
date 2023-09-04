@@ -14,7 +14,6 @@ public class Ball extends Rectangle {
         random = new Random();
         setXDirection(directions[random.nextInt(2)] * speed);
         setYDirection(directions[random.nextInt(2)] * speed);
-        System.out.println(speed);
     }
 
     public void setXDirection(int randomXDirection) {
