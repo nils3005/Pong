@@ -132,6 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
             if (e.getKeyCode() == KeyEvent.VK_PLUS) p2Up = true;
             if (e.getKeyCode() == KeyEvent.VK_NUMBER_SIGN) p2Down = true;
             if (e.getKeyCode() == KeyEvent.VK_SPACE) isRunning = !isRunning;
+            if (e.getKeyCode() == KeyEvent.VK_B) isSound = !isSound;
         }
 
         public void keyReleased(KeyEvent e) {

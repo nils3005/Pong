@@ -5,7 +5,6 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.InputStream;
 
 public class KeyboardMenu extends JPanel {
@@ -27,7 +26,8 @@ public class KeyboardMenu extends JPanel {
                 {"S", "MOVES LEFT PADDLE DOWN"},
                 {"+", "MOVES RIGHT PADDLE UP"},
                 {"#", "MOVES RIGHT PADDLE DOWN"},
-                {"SPACE", "PAUSE / RESUME"}
+                {"SPACE", "PAUSE / RESUME"},
+                {"B", "SOUND ON / OFF"}
         };
         JTable jTable = new JTable(data, cols);
         jTable.getColumnModel().getColumn(0).setMinWidth(150);
