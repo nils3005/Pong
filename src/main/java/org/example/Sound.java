@@ -3,30 +3,28 @@ package org.example;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 public class Sound {
-    Clip clip;
-    String paddle;
+    private static final String PADDLE = "/BallHitPaddle.wav";
+    private static final String SCORE = "/Scored.wav";
     String score;
 
-    public Sound() {
-        paddle = "src/main/resources/BallHitPaddle.wav";
-        score = "src/main/resources/Scored.wav";
-    }
-
-    public void play(SE se) {
+    public static void play(SE se) {
+        String audioPath = PADDLE;
+        Clip clip;
+        if (se == SE.SCORE) audioPath = SCORE;
         try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(new File(paddle));
-            if (se == SE.SCORE){
-                ais = AudioSystem.getAudioInputStream(new File(score));
-            }
+            InputStream is = Sound.class.getResourceAsStream(audioPath);
+            BufferedInputStream bis = new BufferedInputStream(is);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(bis);
             clip = AudioSystem.getClip();
             clip.open(ais);
+            clip.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        clip.start();
     }
 
     public enum SE {

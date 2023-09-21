@@ -4,9 +4,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 
 public class KeyboardMenu extends JPanel {
+    private static final String RETUN_PATH = "/return.jpg";
     public KeyboardMenu() {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 20));
         this.setPreferredSize(Main.SCREEN_DIMENSION);
@@ -56,8 +59,8 @@ public class KeyboardMenu extends JPanel {
         bReturn.setOpaque(true);
         bReturn.setBorderPainted(false);
         try {
-            String path = "src/main/resources/return.jpg";
-            Image img = ImageIO.read(new File(path));
+            InputStream is = KeyboardMenu.class.getResourceAsStream(RETUN_PATH);
+            BufferedImage img = ImageIO.read(is);
             bReturn.setIcon(new ImageIcon(img.getScaledInstance(70, 70, 0)));
         } catch (Exception e) {
             e.printStackTrace();

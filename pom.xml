@@ -16,19 +16,18 @@
 
     <build>
         <finalName>Pong</finalName>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>com.example</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.1</version>
-                    <configuration>
-                        <debug>true</debug>
-                        <debuglevel>lines, vars, source</debuglevel>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.example.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

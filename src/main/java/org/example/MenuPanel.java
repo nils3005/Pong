@@ -4,12 +4,19 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 
 public class MenuPanel extends JPanel {
     public static final Font TITLE_FONT = new Font("Consolas", Font.BOLD, 100);
     public static final Font CONTROL_FONT = new Font("Consolas", Font.BOLD, 40);
     private boolean isSound = true;
+    private static final String RESOURCES_PATH = "/";
+    private static final String KEYBOARD_PATH = RESOURCES_PATH + "keyboard.jpg";
+    private static final String SOUND_ON_PATH = RESOURCES_PATH + "soundOn.jpg";
+    private static final String SOUND_OFF_PATH = RESOURCES_PATH + "soundOff.jpg";
+    private static final String START_PATH = RESOURCES_PATH + "start.jpg";
     private int speed = 5;
     private JButton bSound;
     private Integer[] speedOptions = {3, 4, 5, 6, 7, 8, 9, 10};
@@ -39,8 +46,9 @@ public class MenuPanel extends JPanel {
         bStart.setBorderPainted(false);
         bStart.setFocusPainted(false);
         try {
-            String path = "src/main/resources/start.jpg";
-            Image img = ImageIO.read(new File(path));
+            //Image img = ImageIO.read(new File(START_PATH));
+            InputStream is = MenuPanel.class.getResourceAsStream(START_PATH);
+            BufferedImage img = ImageIO.read(is);
             bStart.setIcon(new ImageIcon(img.getScaledInstance(70, 70, 0)));
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,8 +89,8 @@ public class MenuPanel extends JPanel {
         bKeyboard.setCursor(new Cursor(Cursor.HAND_CURSOR));
         bKeyboard.addActionListener(e -> Main.getFrame().createKeyboardPanel());
         try {
-            String path = "src/main/resources/keyboard.jpg";
-            Image img = ImageIO.read(new File(path));
+            InputStream is = MenuPanel.class.getResourceAsStream(KEYBOARD_PATH);
+            BufferedImage img = ImageIO.read(is);
             bKeyboard.setIcon(new ImageIcon(img.getScaledInstance(70, 70, 0)));
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,9 +106,10 @@ public class MenuPanel extends JPanel {
 
     private void updateBSoundImg() {
         try {
-            String path = "src/main/resources/soundOff.jpg";
-            if (isSound) path = "src/main/resources/soundOn.jpg";
-            Image img = ImageIO.read(new File(path));
+            String path = SOUND_OFF_PATH;
+            if (isSound) path = SOUND_ON_PATH;
+            InputStream is = MenuPanel.class.getResourceAsStream(path);
+            BufferedImage img = ImageIO.read(is);
             bSound.setIcon(new ImageIcon(img.getScaledInstance(70, 70, 0)));
         } catch (Exception e) {
             e.printStackTrace();

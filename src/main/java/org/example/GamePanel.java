@@ -33,7 +33,6 @@ public class GamePanel extends JPanel implements Runnable {
         thread = new Thread(this);
         thread.start();
         isRunning = true;
-        sound = new Sound();
         isSound = pIsSound;
         score = new Score(Main.PANEL_WIDTH, Main.PANEL_HEIGHT);
         newBall();
@@ -93,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void playSoundEffect(Sound.SE se) {
-        if (isSound) sound.play(se);
+        if (isSound) Sound.play(se);
     }
 
     public void newBall() {
